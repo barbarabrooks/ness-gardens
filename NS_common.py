@@ -14,6 +14,8 @@ def dimensions(nc, ET):
    time = nc.createDimension('time', len(ET))
    latitude = nc.createDimension('latitude', 1)
    longitude = nc.createDimension('longitude', 1)
+   s_index = nc.createDimension('s_index', 4)
+   l_index = nc.createDimension('l_index', 2)
    
 def variables(nc, data):
    import numpy as np

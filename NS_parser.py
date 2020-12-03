@@ -80,7 +80,7 @@ def read_config(logfile):
       
    return ver, fn_in, name, product
       
-def read_data_file(dp, fn_in, data, logfile):
+def read_data_file(dp, fn, fn_in, data, logfile):
    import NS_data as dat
    
    if dp == 'ness-aws-1':
@@ -88,9 +88,6 @@ def read_data_file(dp, fn_in, data, logfile):
          data = dat.ness_aws_1(fn_in, data, logfile)
       if '.txt' in fn_in:
          data = dat.ness_aws_2(fn_in, data, logfile)
-         
-   if dp == 'ness-hand-obs':
-      data = dat.ness_hand_obs(fn_in, data, logfile)    
          
    del dat
    
@@ -102,22 +99,14 @@ def do_run(name, product, ver, meta, data, logfile):
    start_date = ''
    # set default file naming options
    opt1 = ''; opt2 = ''; opt3 = ''
-           
-   # S      
+                
    if product == 'surface-met':
       # create nc file - ness
       nc = prod.create_NC_file(name, product, ver, opt1, opt2, opt3, data.ET[0], logfile)
       prod.surface_met(meta, data, nc)
-      nc.close()  
+      nc.close()
+         
    del prod
-   
-   #hand obs are monthly files
-   #if product == 'surface-met-2':
-   #   # create nc file - ness
-   #   nc = prod.create_NC_file(name, product, ver, opt1, opt2, opt3, data.ET[0], logfile)
-   #   prod.surface_met(meta, data, nc)
-   #   nc.close()  
-   #del prod
    
 def t_control(logfile): 
    import os
@@ -142,6 +131,7 @@ def t_control(logfile):
       data = read_data_file(name, fn_in, data, logfile)
       
       # run through run list for each deployment mode
-      #do_run(name, product, ver, meta, data, logfile)
-      
+      do_run(name, product, ver, meta, data, logfile)
+         
       del data, fn_in
+         

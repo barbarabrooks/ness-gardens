@@ -13,7 +13,7 @@
 1.0
 ness-aws-1
 surface-met
-C:\Users\lecbjb\Desktop\WORK\TEMP\ness\AWS\TXT
+C:\Users\lecbjb\Desktop\WORK\TEMP\ness\AWS\CSV\Imperial
 ##### End - do not remove #####
 
 #ness-aws-1
@@ -24,7 +24,5 @@ C:\Users\lecbjb\Desktop\WORK\TEMP\ness\AWS\TXT
 #surface-met
 #C:\Users\lecbjb\Desktop\WORK\TEMP\ness\AWS\TXT
 
-#ness-hand-obs
-#surface-met
-#C:\Users\lecbjb\Desktop\WORK\TEMP\ness\Hand
+
 

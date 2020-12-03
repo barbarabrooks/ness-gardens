@@ -78,7 +78,7 @@ def ness_aws_1_QC(df, data):
    
    #UV
    X = np.array(df.loc[:,header[13]:header[13]:1])
-   UV = np.float32(X) * 40
+   UV = np.float32(X) / 40
    del X
    
    #Soil Temperature 1
@@ -876,8 +876,6 @@ def ness_aws_2_time(df, data):
    ds = df.loc[:,header[0]:header[0]:1].values #extract date from data frame 
    
    for i in range(1, len(ds)):
-      #print(str(ds[i]))
-      #print(time.strptime(str(ds[i]), "['%Y%m%d %H:%M']"))
       for fmt in dateformats:
          try:   
             tt = time.strptime(str(ds[i]), fmt)
@@ -941,7 +939,7 @@ def ness_aws_2_QC(df, data):
    
    #UV
    X = np.array(df.loc[1:len(df),header[13]:header[13]:1])
-   UV = np.float32(X) * 40
+   UV = np.float32(X) / 40
    del X
    
    # QC data
@@ -1279,30 +1277,37 @@ def ness_aws_2_QC(df, data):
    #soil moisture   
    qc_flag_soil_moisture = np.ones_like(SM)  
    #SM >15 2b
-   ix = np.where(SM > 15)
+   ix = np.where(SM > 200)
    try:
       qc_flag_soil_moisture[ix] = 2
    except:
       pass
       
-   #SM 10 - 15 3b
-   ix = np.where((SM > 10) & (SM < 15))
+   #SM 0 - 10 3b soil very wet
+   ix = np.where((SM > 0) & (SM < 10))
    try:
       qc_flag_soil_moisture[ix] = 3
    except:
       pass
       
-   #SM 0 - 5 4b
-   ix = np.where((SM > 0) & (SM < 5))
+   #SM 100 - 150 4b soil very dry
+   ix = np.where((SM > 100) & (SM < 150))
    try:
       qc_flag_soil_moisture[ix] = 4
    except:
       pass   
-   
-   #Missing SM 5b
-   ix = np.where(SM == -1e20)
+     
+   #SM <0 5b
+   ix = np.where(SM < 0)
    try:
       qc_flag_soil_moisture[ix] = 5
+   except:
+      pass      
+   
+   #Missing SM 6b
+   ix = np.where(SM == -1e20)
+   try:
+      qc_flag_soil_moisture[ix] = 6
    except:
       pass
 
@@ -1373,10 +1378,17 @@ def ness_aws_2_QC(df, data):
    except:
       pass 
       
-   #Missing LW 5b
-   ix = np.where(LW == -1e20)
+   #LW <0 5b
+   ix = np.where(LW < 0)
    try:
       qc_flag_leaf_wetness[ix] = 5
+   except:
+      pass   
+      
+   #Missing LW 6b
+   ix = np.where(LW == -1e20)
+   try:
+      qc_flag_leaf_wetness[ix] = 6
    except:
       pass   
    
@@ -1603,7 +1615,6 @@ def ness_aws_2(fn_in, data, logfile):
    from datetime import datetime
   
    try:
-      #df = pd.read_csv(fn_in, sep='\t', lineterminator='\r')
       df = pd.read_table(fn_in)
    except:
       # exit if problem encountered
@@ -1619,5 +1630,4 @@ def ness_aws_2(fn_in, data, logfile):
    #parse_data
    data = ness_aws_2_QC(df, data)
    
-   return data   
-   
+   return data  
