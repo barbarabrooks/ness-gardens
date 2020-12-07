@@ -8,10 +8,7 @@ def create_NC_file(nm, dp, ver, opt1, opt2, opt3, start_date, logfile):
       dout = 'Data\\'
       f1 = nm # instrument name
       f2 = 'ness-gardens'
-      if nm == 'ness-hand-obs':
-         f3 = datetime.fromtimestamp(int(start_date)).strftime('%Y%m') # monthly files 
-      else:
-         f3 = datetime.fromtimestamp(int(start_date)).strftime('%Y%m%d') # daily files
+      f3 = datetime.fromtimestamp(int(start_date)).strftime('%Y%m%d') # daily files
       f4 = dp # data product
       f5 = 'v' + ver # version number
       f6 = '.nc'
@@ -287,7 +284,7 @@ def surface_met(meta, data, nc):
    v.flag_meanings = v.flag_meanings + '3b:bad_data:UV<0Wm-2' + '\n'
    v.flag_meanings = v.flag_meanings + '4b:bad_data:UV_missing_data' + '\n'
    v.flag_meanings = v.flag_meanings + '5b:suspect_data:_total_irradiance(Solar)>1800ms-1' + '\n'
-   v.flag_meanings = v.flag_meanings + '5b:bad_data:_total_irradiance(Solar)<0ms-1' + '\n'
+   v.flag_meanings = v.flag_meanings + '6b:bad_data:_total_irradiance(Solar)<0ms-1' + '\n'
    v.flag_meanings = v.flag_meanings + '7b:bad_data:_total_irradiance_missing_data' 
    #write data
    v[:] = np.int8(data.qc_flag_radiation)
@@ -303,7 +300,7 @@ def surface_met(meta, data, nc):
    v.flag_meanings = v.flag_meanings + '3b:bad_data:_accumulated_rain<0mm' + '\n'
    v.flag_meanings = v.flag_meanings + '4b:bad_data:_accumulated_rain_missing_data' + '\n'
    v.flag_meanings = v.flag_meanings + '5b:suspect_data:_rainfall_rate>300mmhr-1' + '\n'
-   v.flag_meanings = v.flag_meanings + '5b:bad_data:_rainfall_rate<0mmhr-1' + '\n'
+   v.flag_meanings = v.flag_meanings + '6b:bad_data:_rainfall_rate<0mmhr-1' + '\n'
    v.flag_meanings = v.flag_meanings + '7b:bad_data:_rainfall_rate_missing_data'  
    #write data
    v[:] = np.int8(data.qc_flag_precipitation)

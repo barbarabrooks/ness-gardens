@@ -243,7 +243,7 @@ def ness_aws_1_QC(df, data):
       pass
       
    #Missing 6b
-   ix = np.where(TT == -1e20)
+   ix = np.where(TT <= -1e10)
    try:
       qc_flag_temperature[ix] = 6
    except:
@@ -280,7 +280,7 @@ def ness_aws_1_QC(df, data):
       pass
    
    #Missing 6b
-   ix = np.where(RH == -1e20)
+   ix = np.where(RH <= -1e10)
    try:
       qc_flag_relative_humidity[ix] = 6
    except:
@@ -317,7 +317,7 @@ def ness_aws_1_QC(df, data):
       pass
    
    #Missing 6b
-   ix = np.where(PP == -1e20)
+   ix = np.where(PP <= -1e10)
    try:
       qc_flag_pressure[ix] = 6
    except:
@@ -347,7 +347,7 @@ def ness_aws_1_QC(df, data):
       pass
   
    #Missing 5b
-   ix = np.where(WS == -1e20)
+   ix = np.where(WS <= -1e10)
    try:
       qc_flag_wind_speed[ix] = 5
    except:
@@ -377,7 +377,7 @@ def ness_aws_1_QC(df, data):
       pass
       
    #Missing 5b
-   ix = np.where(WD == -1e20)
+   ix = np.where(WD <= -1e10)
    try:
       qc_flag_wind_from_direction[ix] = 5
    except:
@@ -400,7 +400,7 @@ def ness_aws_1_QC(df, data):
       pass
       
    #Missing UV 4b
-   ix = np.where(UV == -1e20)
+   ix = np.where(UV <= -1e10)
    try:
       qc_flag_radiation[ix] = 4
    except:
@@ -421,7 +421,7 @@ def ness_aws_1_QC(df, data):
       pass
       
    #Missing SL 7b
-   ix = np.where(SL == -1e20)
+   ix = np.where(SL <= -1e10)
    try:
       qc_flag_radiation[ix] = 7
    except:
@@ -444,7 +444,7 @@ def ness_aws_1_QC(df, data):
       pass
    
    #Missing PA 4b
-   ix = np.where(PA == -1e20)
+   ix = np.where(PA <= -1e10)
    try:
       qc_flag_precipitation[ix] = 4
    except:
@@ -465,7 +465,7 @@ def ness_aws_1_QC(df, data):
       pass
    
    #Missing PR 7b
-   ix = np.where(PR == -1e20)
+   ix = np.where(PR <= -1e10)
    try:
       qc_flag_precipitation[ix] = 7
    except:
@@ -509,7 +509,7 @@ def ness_aws_1_QC(df, data):
       pass 
    
    #Missing ST 7b
-   ix = np.where(ST == -1e20)
+   ix = np.where(ST <= -1e10)
    try:
       qc_flag_soil_temperature[ix] = 7
    except:
@@ -539,7 +539,7 @@ def ness_aws_1_QC(df, data):
       pass   
    
    #Missing SM 5b
-   ix = np.where(SM == -1e20)
+   ix = np.where(SM <= -1e10)
    try:
       qc_flag_soil_moisture[ix] = 5
    except:
@@ -583,7 +583,7 @@ def ness_aws_1_QC(df, data):
       pass 
    
    #Missing LT 7b
-   ix = np.where(LT == -1e20)
+   ix = np.where(LT <= -1e10)
    try:
       qc_flag_leaf_temperature[ix] = 7
    except:
@@ -613,7 +613,7 @@ def ness_aws_1_QC(df, data):
       pass 
       
    #Missing LW 5b
-   ix = np.where(LW == -1e20)
+   ix = np.where(LW <= -1e10)
    try:
       qc_flag_leaf_wetness[ix] = 5
    except:
@@ -771,7 +771,7 @@ def ness_aws_1_QC(df, data):
    if ST_min > -1e20:
       ST_min = ST_min + 273.15
    if ST_max > -1e20:
-      ST_max = TT_max + 273.15
+      ST_max = ST_max + 273.15
    
    #leaf temperature
    ix = np.where(LT > -1e20)
@@ -1002,7 +1002,7 @@ def ness_aws_2_QC(df, data):
       pass
       
    #Missing 6b
-   ix = np.where(TT == -1e20)
+   ix = np.where(TT <= -1e10)
    try:
       qc_flag_temperature[ix] = 6
    except:
@@ -1039,7 +1039,7 @@ def ness_aws_2_QC(df, data):
       pass
    
    #Missing 6b
-   ix = np.where(RH == -1e20)
+   ix = np.where(RH <= -1e10)
    try:
       qc_flag_relative_humidity[ix] = 6
    except:
@@ -1076,7 +1076,7 @@ def ness_aws_2_QC(df, data):
       pass
    
    #Missing 6b
-   ix = np.where(PP == -1e20)
+   ix = np.where(PP <= -1e10)
    try:
       qc_flag_pressure[ix] = 6
    except:
@@ -1106,7 +1106,7 @@ def ness_aws_2_QC(df, data):
       pass
   
    #Missing 5b
-   ix = np.where(WS == -1e20)
+   ix = np.where(WS <= -1e10)
    try:
       qc_flag_wind_speed[ix] = 5
    except:
@@ -1136,7 +1136,7 @@ def ness_aws_2_QC(df, data):
       pass
       
    #Missing 5b
-   ix = np.where(WD == -1e20)
+   ix = np.where(WD <= -1e10)
    try:
       qc_flag_wind_from_direction[ix] = 5
    except:
@@ -1159,7 +1159,7 @@ def ness_aws_2_QC(df, data):
       pass
       
    #Missing UV 4b
-   ix = np.where(UV == -1e20)
+   ix = np.where(UV <= -1e10)
    try:
       qc_flag_radiation[ix] = 4
    except:
@@ -1180,7 +1180,7 @@ def ness_aws_2_QC(df, data):
       pass
       
    #Missing SL 7b
-   ix = np.where(SL == -1e20)
+   ix = np.where(SL <= -1e10)
    try:
       qc_flag_radiation[ix] = 7
    except:
@@ -1203,7 +1203,7 @@ def ness_aws_2_QC(df, data):
       pass
    
    #Missing PA 4b
-   ix = np.where(PA == -1e20)
+   ix = np.where(PA <= -1e10)
    try:
       qc_flag_precipitation[ix] = 4
    except:
@@ -1224,7 +1224,7 @@ def ness_aws_2_QC(df, data):
       pass
    
    #Missing PR 7b
-   ix = np.where(PR == -1e20)
+   ix = np.where(PR <= -1e10)
    try:
       qc_flag_precipitation[ix] = 7
    except:
@@ -1268,7 +1268,7 @@ def ness_aws_2_QC(df, data):
       pass 
    
    #Missing ST 7b
-   ix = np.where(ST == -1e20)
+   ix = np.where(ST <= -1e10)
    try:
       qc_flag_soil_temperature[ix] = 7
    except:
@@ -1305,7 +1305,7 @@ def ness_aws_2_QC(df, data):
       pass      
    
    #Missing SM 6b
-   ix = np.where(SM == -1e20)
+   ix = np.where(SM <= -1e10)
    try:
       qc_flag_soil_moisture[ix] = 6
    except:
@@ -1349,7 +1349,7 @@ def ness_aws_2_QC(df, data):
       pass 
    
    #Missing LT 7b
-   ix = np.where(LT == -1e20)
+   ix = np.where(LT <= -1e10)
    try:
       qc_flag_leaf_temperature[ix] = 7
    except:
@@ -1386,7 +1386,7 @@ def ness_aws_2_QC(df, data):
       pass   
       
    #Missing LW 6b
-   ix = np.where(LW == -1e20)
+   ix = np.where(LW <= -1e10)
    try:
       qc_flag_leaf_wetness[ix] = 6
    except:

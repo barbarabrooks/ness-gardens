@@ -1,16 +1,16 @@
-def read_meta(logfile, name):
+def read_meta(logfile, name, fn):
    import pandas as pd
    import numpy as np
    from datetime import datetime
    
    # read in meta
    try:
-      df = pd.read_excel("meta.xlsx")
+      df = pd.read_excel(fn)
    except:
       # exit if problem encountered
-      print("Unable to open meta.xlsx. This program will terminate")
+      print("Unable to open ", fn,". This program will terminate")
       g = open(logfile, 'a')
-      g.write(datetime.utcnow().isoformat() + ' Unable to open meta.xlsx. Program will terminate.\n')
+      g.write(datetime.utcnow().isoformat() + ' Unable to open file. Program will terminate.\n')
       g.close()
       exit()     
       
@@ -80,7 +80,7 @@ def read_config(logfile):
       
    return ver, fn_in, name, product
       
-def read_data_file(dp, fn, fn_in, data, logfile):
+def read_data_file(dp, fn_in, data, logfile):
    import NS_data as dat
    
    if dp == 'ness-aws-1':
@@ -93,18 +93,23 @@ def read_data_file(dp, fn, fn_in, data, logfile):
    
    return data
 
-def do_run(name, product, ver, meta, data, logfile):
+def do_run(name, product, ver, meta, meta_badc, data, logfile):
    import NS_products as prod
-      
+   import NS_products_BADC as badc  
+   
    start_date = ''
    # set default file naming options
    opt1 = ''; opt2 = ''; opt3 = ''
                 
    if product == 'surface-met':
       # create nc file - ness
-      nc = prod.create_NC_file(name, product, ver, opt1, opt2, opt3, data.ET[0], logfile)
-      prod.surface_met(meta, data, nc)
-      nc.close()
+      #nc = prod.create_NC_file(name, product, ver, opt1, opt2, opt3, data.ET[0], logfile)
+      #prod.surface_met(meta, data, nc)
+      #nc.close()
+      
+      # create BADC-CSV formatted file with same data.
+      badc_fn = badc.create_CSV_file(name, product, ver, opt1, opt2, opt3, data.ET[0])
+      badc.write_csv(meta_badc, data, badc_fn)
          
    del prod
    
@@ -117,7 +122,10 @@ def t_control(logfile):
    list = os.listdir(dn_in)
   
    # read in meta file
-   meta = read_meta(logfile, name)
+   meta = read_meta(logfile, name, "meta.xlsx")
+   
+   # read in BADC meta file
+   meta_badc = read_meta(logfile, name, "meta_badc.xlsx")
    
    for fn in list:
       #read in data
@@ -131,7 +139,7 @@ def t_control(logfile):
       data = read_data_file(name, fn_in, data, logfile)
       
       # run through run list for each deployment mode
-      do_run(name, product, ver, meta, data, logfile)
-         
+      do_run(name, product, ver, meta, meta_badc, data, logfile)
+      exit()   
       del data, fn_in
          

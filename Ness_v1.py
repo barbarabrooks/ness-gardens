@@ -69,4 +69,18 @@ except FileExistsError:
     g.close() 
     exit()
     
+# check for BADC meta
+try:
+    path.exists("meta_badc.xlsx")
+    print("meta_badc.xlsx file detected")   
+    g = open(logfile, 'a')
+    g.write(datetime.utcnow().isoformat() + ' meta_badc.xlsx file detected.\n')
+    g.close()     
+except FileExistsError:
+    print("meta_badc.xlsx file missing. Program will terminate.")
+    g = open(logfile, 'a')
+    g.write(datetime.utcnow().isoformat() + ' meta_badc.xlsx file missing. Program will terminate.\n')
+    g.close() 
+    exit()  
+    
 td.t_control(logfile)    
